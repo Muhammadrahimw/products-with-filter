@@ -8,22 +8,14 @@ let btn = document.querySelectorAll(".btn");
 let loader = document.querySelector(".loader");
 let cloneData = null;
 
-let createItem = (element, className, add) => {
+let createItem = (element, className, add, nextClassName) => {
   let newItem = document.createElement(element);
   newItem.classList.add(className);
+  newItem.classList.add(nextClassName);
   add.append(newItem);
+
   return newItem;
 };
-
-// star = createItem("i", "fa-solid", rating);
-// star.classList.add("fa-star");
-// shortStarFunc(star, "fa-solid", "fa-star");
-
-// let shortStarFunc = (className, classNameTwo) => {
-//   let starElement = createItem("i", className, rating);
-//   starElement.classList.add(classNameTwo);
-//   return starElement;
-// };
 
 let styling = (style, ...items) => {
   items.forEach((element) => {
@@ -100,33 +92,26 @@ let creatingCard = (item) => {
     item.rating.rate - Math.floor(item.rating.rate) >= 0.25 &&
     item.rating.rate - Math.floor(item.rating.rate) <= 0.75
   ) {
-    for (let i = 0; Math.floor(item.rating.rate) > i; i++) {
-      star = createItem("i", "fa-solid", rating);
-      star.classList.add("fa-star");
+    for (let i = 0; Math.floor(item.rating.rate - 1) > i; i++) {
+      star = createItem("i", "fa-solid", rating, "fa-star");
     }
-    starHalf = createItem("i", "fa-solid", rating);
-    star.classList.add("fa-star-half-stroke");
+    starHalf = createItem("i", "fa-solid", rating, "fa-star-half-stroke");
     for (let i = 0; 5 - Math.floor(item.rating.rate) > i; i++) {
-      emptyStar = createItem("i", "fa-regular", rating);
-      emptyStar.classList.add("fa-star");
+      emptyStar = createItem("i", "fa-regular", rating, "fa-star");
     }
   } else if (item.rating.rate - Math.floor(item.rating.rate) < 0.25) {
     for (let i = 0; Math.floor(item.rating.rate) > i; i++) {
-      star = createItem("i", "fa-solid", rating);
-      star.classList.add("fa-star");
+      star = createItem("i", "fa-solid", rating, "fa-star");
     }
     for (let i = 0; 5 - Math.floor(item.rating.rate) > i; i++) {
-      emptyStar = createItem("i", "fa-regular", rating);
-      emptyStar.classList.add("fa-star");
+      emptyStar = createItem("i", "fa-regular", rating, "fa-star");
     }
   } else {
     for (let i = 0; Math.ceil(item.rating.rate) > i; i++) {
-      star = createItem("i", "fa-solid", rating);
-      star.classList.add("fa-star");
+      star = createItem("i", "fa-solid", rating, "fa-star");
     }
     for (let i = 0; 5 - Math.ceil(item.rating.rate) > i; i++) {
-      emptyStar = createItem("i", "fa-regular", rating);
-      emptyStar.classList.add("fa-star");
+      emptyStar = createItem("i", "fa-regular", rating, "fa-star");
     }
   }
 };
