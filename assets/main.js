@@ -13,7 +13,6 @@ let createItem = (element, className, add, nextClassName) => {
   newItem.classList.add(className);
   newItem.classList.add(nextClassName);
   add.append(newItem);
-
   return newItem;
 };
 
@@ -39,7 +38,7 @@ let filterCategories = (data, btnName, category) => {
       btnName.style.cssText = `background-color: rgba(128, 128, 128, 0.3); transition: 0.1s`;
     }
     data.forEach((item) => {
-      if (item.category === category || category === "All") {
+      if (item.category === category || !category) {
         creatingCard(item);
       }
     });
@@ -127,7 +126,7 @@ fetch("https://fakestoreapi.com/products")
     cloneData = data;
     data.forEach((item) => {
       creatingCard(item);
-      filterCategories(data, allBtn, "All");
+      filterCategories(data, allBtn);
       filterCategories(data, menBtn, "men's clothing");
       filterCategories(data, womenBtn, "women's clothing");
       filterCategories(data, jeweleryBtn, "jewelery");
