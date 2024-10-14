@@ -12,15 +12,24 @@ header {
 }
 
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 3em;
+  height: 4.75em;
   display: flex;
+  align-items: center;
   gap: 1em;
+  padding: 0 2.5em;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+  z-index: 100;
 }
 nav .btn {
   width: 100%;
   border-radius: 0.25em;
   border: none;
+  height: 50px;
   font-size: 1.25em;
   font-weight: 400;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
@@ -34,7 +43,7 @@ nav .btn {
 .products {
   width: 95%;
   margin: 0 auto;
-  margin-top: 2em;
+  margin-top: 5em;
   margin-bottom: 2em;
   display: flex;
   flex-wrap: wrap;
