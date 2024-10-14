@@ -26,15 +26,16 @@ nav .btn {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   cursor: pointer;
 }
-nav .btn:active {
-  background-color: rgba(128, 128, 128, 0.3);
-  transition: 0.1s;
+
+#all {
+  background-color: rgb(217, 217, 217);
 }
 
 .products {
   width: 95%;
   margin: 0 auto;
   margin-top: 2em;
+  margin-bottom: 2em;
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
@@ -46,7 +47,6 @@ nav .btn:active {
   padding: 1em;
   border-radius: 0.5em;
   background-color: white;
-  min-height: 570px;
   cursor: pointer;
 }
 .card:hover {
@@ -64,18 +64,51 @@ nav .btn:active {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 .card .info .title {
   font-size: 1.1em;
-  height: 65px;
+  height: 45px;
+}
+.card .info .price {
+  display: flex;
+  gap: 0.3em;
+}
+.card .info .price .priceSpan {
+  font-weight: 500;
 }
 .card .info .description {
   display: none;
 }
-.card .info .showing {
-  text-align: left;
+
+.textHover {
   font-weight: 500;
+}
+.textHover:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.loading {
+  width: 95%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loading .loader {
+  width: 70px;
+  margin-bottom: 6em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 10px solid rgba(0, 0, 0, 0.3);
+  border-right-color: black;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {
+  to {
+    transform: rotate(1turn);
+  }
 }
 
 @media (max-width: 1280px) {

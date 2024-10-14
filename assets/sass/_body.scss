@@ -1,7 +1,10 @@
+@use "./variables" as *;
+
 .products {
     width: 95%;
     margin: 0 auto;
     margin-top: 2em;
+    margin-bottom: 2em;
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
@@ -13,7 +16,6 @@
     padding: 1em;
     border-radius: 0.5em;
     background-color: white;
-    min-height: 570px;
     cursor: pointer;
 
     &:hover {
@@ -33,20 +35,55 @@
         display: flex;
         flex-direction: column;
         gap: 1em;
-        margin-top: 1em;
+        margin-top: 1.5em;
 
         .title {
             font-size: 1.1em;
-            height: 65px;
+            height: 45px;
+        }
+
+        .price {
+            display: flex;
+            gap: 0.3em;
+
+            .priceSpan {
+                font-weight: 500;
+            }
         }
 
         .description {
             display: none;
         }
+    }
+}
 
-        .showing {
-            text-align: left;
-            font-weight: 500;
+.textHover {
+    font-weight: 500;
+
+    &:hover {
+        color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+.loading {
+    width: 95%;
+    height: 100%;
+    position: fixed;
+    @include center;
+
+    .loader {
+        width: 70px;
+        margin-bottom: 6em;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 10px solid rgba(0, 0, 0, 0.3);
+        border-right-color: black;
+        animation: l2 1s infinite linear;
+    }
+
+    @keyframes l2 {
+        to {
+            transform: rotate(1turn)
         }
     }
 }

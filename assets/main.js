@@ -4,7 +4,9 @@ let menBtn = document.getElementById("menCloths");
 let womenBtn = document.getElementById("womenCloths");
 let jeweleryBtn = document.getElementById("jewelery");
 let electtricsBtn = document.getElementById("elctrics");
-
+let btn = document.querySelectorAll(".btn");
+let loader = document.querySelector(".loader");
+let cloneData = null;
 let createItem = (element, className, add) => {
   let newItem = document.createElement(element);
   newItem.classList.add(className);
@@ -21,6 +23,18 @@ let styling = (style, ...items) => {
 let filterCategories = (data, btnName, category) => {
   btnName.addEventListener("click", (e) => {
     products.innerHTML = "";
+    for (let i = 0; i < 5; i++) {
+      btn[i].style.backgroundColor = "rgb(240, 240, 240)";
+    }
+    if (btnName.classList.contains("textHover")) {
+      btn.forEach((item) => {
+        if (item.textContent === category) {
+          item.style.cssText = `background-color: rgba(128, 128, 128, 0.3); transition: 0.1s`;
+        }
+      });
+    } else {
+      btnName.style.cssText = `background-color: rgba(128, 128, 128, 0.3); transition: 0.1s`;
+    }
     data.forEach((item) => {
       if (item.category === category || category === "All") {
         creatingCard(item);
@@ -35,17 +49,28 @@ let creatingCard = (item) => {
   let info = createItem("div", "info", card);
   let title = createItem("p", "title", info);
   let price = createItem("p", "price", info);
+  let priceSpan = createItem("p", "priceSpan", info);
   let rating = createItem("div", "rating", info);
   let category = createItem("div", "category", info);
-  let showing = createItem("p", "showing", info);
+  let categorySpan = createItem("span", "textHover", category);
+  let showing = createItem("p", "textHover", info);
   let description = createItem("p", "description", info);
   img.style.cssText = `background-image: url("${item.image}");`;
-  title.textContent = item.title;
-  price.textContent = `price: ` + item.price + `$`;
-  category.textContent = `category: ` + item.category;
+  title.textContent =
+    item.title.length > 60 ? item.title.slice(0, 60) + "..." : item.title;
+  price.textContent = `price: `;
+  price.appendChild(priceSpan);
+  priceSpan.textContent = item.price + "$";
+  category.textContent = `category: `;
+  category.appendChild(categorySpan);
+  categorySpan.textContent = item.category;
   showing.textContent = `show more`;
-  description.textContent = item.description;
+  description.textContent =
+    item.description.length > 280
+      ? item.description.slice(0, 280) + "..."
+      : item.description;
 
+  filterCategories(cloneData, categorySpan, item.category);
   showing.addEventListener("click", (e) => {
     if (description.style.display === "block") {
       description.style.display = "none";
@@ -70,22 +95,40 @@ let creatingCard = (item) => {
     }
     starHalf = createItem("i", "fa-solid", rating);
     star.classList.add("fa-star-half-stroke");
+    for (let i = 0; 5 - Math.floor(item.rating.rate) > i; i++) {
+      emptyStar = createItem("i", "fa-regular", rating);
+      emptyStar.classList.add("fa-star");
+    }
   } else if (item.rating.rate - Math.floor(item.rating.rate) < 0.25) {
     for (let i = 0; Math.floor(item.rating.rate) > i; i++) {
       star = createItem("i", "fa-solid", rating);
       star.classList.add("fa-star");
+    }
+    for (let i = 0; 5 - Math.floor(item.rating.rate) > i; i++) {
+      emptyStar = createItem("i", "fa-regular", rating);
+      emptyStar.classList.add("fa-star");
     }
   } else {
     for (let i = 0; Math.ceil(item.rating.rate) > i; i++) {
       star = createItem("i", "fa-solid", rating);
       star.classList.add("fa-star");
     }
+    for (let i = 0; 5 - Math.ceil(item.rating.rate) > i; i++) {
+      emptyStar = createItem("i", "fa-regular", rating);
+      emptyStar.classList.add("fa-star");
+    }
   }
 };
 
 fetch("https://fakestoreapi.com/products")
-  .then((data) => data.json())
   .then((data) => {
+    if (data.ok) {
+      loader.style.display = "none";
+      return data.json();
+    }
+  })
+  .then((data) => {
+    cloneData = data;
     data.forEach((item) => {
       creatingCard(item);
       filterCategories(data, allBtn, "All");
