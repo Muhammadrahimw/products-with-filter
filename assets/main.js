@@ -7,12 +7,23 @@ let electtricsBtn = document.getElementById("elctrics");
 let btn = document.querySelectorAll(".btn");
 let loader = document.querySelector(".loader");
 let cloneData = null;
+
 let createItem = (element, className, add) => {
   let newItem = document.createElement(element);
   newItem.classList.add(className);
   add.append(newItem);
   return newItem;
 };
+
+// star = createItem("i", "fa-solid", rating);
+// star.classList.add("fa-star");
+// shortStarFunc(star, "fa-solid", "fa-star");
+
+// let shortStarFunc = (className, classNameTwo) => {
+//   let starElement = createItem("i", className, rating);
+//   starElement.classList.add(classNameTwo);
+//   return starElement;
+// };
 
 let styling = (style, ...items) => {
   items.forEach((element) => {
@@ -137,5 +148,6 @@ fetch("https://fakestoreapi.com/products")
       filterCategories(data, jeweleryBtn, "jewelery");
       filterCategories(data, electtricsBtn, "electronics");
     });
+    allBtn.click();
   })
   .catch((error) => console.log(error + " :("));
